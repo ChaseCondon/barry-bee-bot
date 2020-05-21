@@ -107,6 +107,17 @@ async def teams(ctx, *players):
     await ctx.send(msg)
 
 
+@bot.command(name='map', help='Chooses a CSGO map.')
+async def map(ctx):
+    maps = [
+        'Mirage', 'Dust 2', 'Cache', 'Overpass'
+        'Inferno', 'Train', 'Cobblestone', 'Nuke', 'Vertigo'
+    ]
+
+    choice = random.choice(maps)
+    await ctx.send(choice)
+
+
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
