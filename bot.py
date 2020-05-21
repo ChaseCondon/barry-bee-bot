@@ -31,6 +31,7 @@ async def blocks(ctx, *words):
 
 @bot.command(name='choose', help='Choose [A] or [B] or...')
 async def choose(ctx, *choices):
+    choices = [choice for choice in choices if choice != 'or']
     choice = random.choice(choices)
     await ctx.send(choice)
 
@@ -89,6 +90,17 @@ async def taps(ctx):
         msg = 'Taps aff'
 
     await ctx.send(f'{weather_emoji[status]} {msg} {weather_emoji[status]}')
+
+
+@bot.command(name='teams', help='Assigns players into teams')
+async def teams(ctx, *players):
+    players = list(players)
+    random.shuffle(players)
+    team_one = '\n\t'.join(players[:int(len(players)/2)])
+    team_two = '\n\t'.join(players[int(len(players)/2):])
+
+    msg = f'Team One:\n\t{team_one}\n\nTeam Two:\n\t{team_two}'
+    await ctx.send(msg)
 
 
 @client.event
