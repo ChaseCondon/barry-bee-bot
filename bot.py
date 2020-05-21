@@ -118,7 +118,8 @@ async def on_message(message):
         return
 
     if message.content.lower() == 'same':
-        await bot.process_commands('Same')
+        channel = message.channel
+        await channel.send('Same')
 
 
 bot.run(TOKEN)
