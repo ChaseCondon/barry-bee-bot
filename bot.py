@@ -13,7 +13,6 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 OWM_KEY = os.getenv('OWM_KEY')
 
-client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 
 
@@ -110,12 +109,12 @@ async def teams(ctx, *players):
 
 @bot.event
 async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    print(f'{bot.user} has connected to Discord!')
 
 
 @bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == bot.user:
         return
 
     if message.content.lower() == 'same':
