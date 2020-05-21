@@ -25,7 +25,7 @@ async def blocks(ctx, *words):
                 seq.append(f':regional_indicator_{letter.lower()}:')
             else:
                 seq.append(letter)
-        seq.append(' ' * 10)
+        seq.append(' ' * 5)
 
     await ctx.send(' '.join(seq))
 
