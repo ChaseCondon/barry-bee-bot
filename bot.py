@@ -4,6 +4,7 @@ import sys
 import random
 
 import pyowm
+import inflect
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -19,10 +20,13 @@ bot = commands.Bot(command_prefix='!')
 @bot.command(name='blocks', help='Adds some blocks.')
 async def blocks(ctx, *words):
     seq = []
+    p = inflect.engine()
     for word in words:
         for letter in word:
             if letter.isalpha():
                 seq.append(f':regional_indicator_{letter.lower()}:')
+            elif letter.isnum():
+                seq.append(f':{p.number_to_words(letter)}:')
             else:
                 seq.append(letter)
         seq.append(' ' * 5)
@@ -104,19 +108,18 @@ async def teams(ctx, *players):
     await ctx.send(msg)
 
 
-@client.event
+@bot.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
 
-@client.event
+@bot.event
 async def on_message(message):
     if message.author == client.user:
         return
 
     if message.content.lower() == 'same':
-        await message.channel.send('Same')
+        await bot.process_commands('Same')
 
 
 bot.run(TOKEN)
-client.run(TOKEN)
